@@ -7,6 +7,7 @@ import com.projeto.locadora.entity.LocadoraEntity;
 
 
 public record DadosListagemLocadora(
+    Long id,
     Tipo tipo,
     String nome,
     Marca marca,
@@ -18,7 +19,7 @@ public record DadosListagemLocadora(
 
     // Contructor do encapsulamento do Get
     public DadosListagemLocadora (LocadoraEntity locadoraEntity) {
-        this(locadoraEntity.getTipo(),locadoraEntity.getNome() , locadoraEntity.getMarca()
+        this(locadoraEntity.getId(),locadoraEntity.getTipo(),locadoraEntity.getNome() , locadoraEntity.getMarca()
         , locadoraEntity.getPlaca(), locadoraEntity.getCambio()
         , locadoraEntity.getValor(), locadoraEntity.getDataretirada());
     }

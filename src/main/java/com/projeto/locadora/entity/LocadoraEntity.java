@@ -3,6 +3,7 @@ package com.projeto.locadora.entity;
 import java.time.LocalDate;
 
 import com.projeto.locadora.model.Cambio;
+import com.projeto.locadora.model.DadosAtualizarLocadora;
 import com.projeto.locadora.model.DadosCadastroLocadora;
 import com.projeto.locadora.model.Marca;
 import com.projeto.locadora.model.Tipo;
@@ -14,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -59,5 +61,17 @@ public class LocadoraEntity {
 
     private Double valor;
     private LocalDate dataretirada;
+
+
+    public void atualizarInformacoes(@Valid DadosAtualizarLocadora dados) {
+       if (dados.nome() != null) {
+        this.nome = dados.nome();
+        
+       }
+       if (dados.marca() !=null) {
+        this.marca = dados.marca();
+        
+       }
+    }
 
 }
