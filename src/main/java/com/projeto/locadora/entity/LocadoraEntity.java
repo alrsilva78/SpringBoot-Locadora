@@ -1,6 +1,11 @@
-package com.projeto.locadora.model;
+package com.projeto.locadora.entity;
 
 import java.time.LocalDate;
+
+import com.projeto.locadora.model.Cambio;
+import com.projeto.locadora.model.DadosCadastroLocadora;
+import com.projeto.locadora.model.Marca;
+import com.projeto.locadora.model.Tipo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

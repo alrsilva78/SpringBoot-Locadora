@@ -3,6 +3,8 @@ package com.projeto.locadora.model;
 // Classe Record DTO
 import java.time.LocalDate;
 
+import com.projeto.locadora.entity.LocadoraEntity;
+
 
 public record DadosListagemLocadora(
     Tipo tipo,

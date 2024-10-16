@@ -2,11 +2,12 @@ package com.projeto.locadora.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.projeto.locadora.entity.LocadoraEntity;
 import com.projeto.locadora.model.DadosCadastroLocadora;
 import com.projeto.locadora.model.DadosListagemLocadora;
-import com.projeto.locadora.model.LocadoraEntity;
-import com.projeto.locadora.view.LocadoraRepository;
+import com.projeto.locadora.repository.LocadoraRepository;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class LocadoraController {
 
     // Definição do tipo de requisição como Post
     @PostMapping
+    @Transactional
     // Encapsulamento dos dados e Save no BD
     public void cadastrarCarro (@RequestBody @Valid DadosCadastroLocadora dados) {
         repository.save(new LocadoraEntity(dados));
