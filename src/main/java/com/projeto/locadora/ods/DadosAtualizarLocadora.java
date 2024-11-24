@@ -1,4 +1,4 @@
-package com.projeto.locadora.model;
+package com.projeto.locadora.ods;
 
 import jakarta.validation.constraints.NotNull;
 

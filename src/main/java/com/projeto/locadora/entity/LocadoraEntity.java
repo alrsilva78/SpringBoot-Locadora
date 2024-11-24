@@ -2,11 +2,11 @@ package com.projeto.locadora.entity;
 
 import java.time.LocalDate;
 
-import com.projeto.locadora.model.Cambio;
-import com.projeto.locadora.model.DadosAtualizarLocadora;
-import com.projeto.locadora.model.DadosCadastroLocadora;
-import com.projeto.locadora.model.Marca;
-import com.projeto.locadora.model.Tipo;
+import com.projeto.locadora.ods.Cambio;
+import com.projeto.locadora.ods.DadosAtualizarLocadora;
+import com.projeto.locadora.ods.DadosCadastroLocadora;
+import com.projeto.locadora.ods.Marca;
+import com.projeto.locadora.ods.Tipo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -34,6 +34,7 @@ public class LocadoraEntity {
 
     // Contructor do encapsulamento do Post 
     public LocadoraEntity(DadosCadastroLocadora dados) {
+        this.ativo = true;
         this.tipo = dados.tipo();
         this.nome = dados.nome();
         this.marca = dados.marca();
@@ -41,7 +42,6 @@ public class LocadoraEntity {
         this.cambio = dados.cambio();
         this.dataretirada = dados.dataretirada();
     }
-
 
     @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
@@ -62,6 +62,8 @@ public class LocadoraEntity {
     private Double valor;
     private LocalDate dataretirada;
 
+    private Boolean ativo;
+
 
     public void atualizarInformacoes(@Valid DadosAtualizarLocadora dados) {
        if (dados.nome() != null) {
@@ -73,5 +75,16 @@ public class LocadoraEntity {
         
        }
     }
+
+    public void inativar() {
+        this.ativo = false;
+    }
+
+
+    public void ativar() {
+        this.ativo = true;
+    }
+
+
 
 }

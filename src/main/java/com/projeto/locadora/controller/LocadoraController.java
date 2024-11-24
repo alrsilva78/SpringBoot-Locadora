@@ -3,16 +3,20 @@ package com.projeto.locadora.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projeto.locadora.entity.LocadoraEntity;
-import com.projeto.locadora.model.DadosAtualizarLocadora;
-import com.projeto.locadora.model.DadosCadastroLocadora;
-import com.projeto.locadora.model.DadosListagemLocadora;
+import com.projeto.locadora.ods.DadosAtualizarLocadora;
+import com.projeto.locadora.ods.DadosCadastroLocadora;
+import com.projeto.locadora.ods.DadosDetalheAtualizarCarros;
+import com.projeto.locadora.ods.DadosListagemLocadora;
 import com.projeto.locadora.repository.LocadoraRepository;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,20 +46,48 @@ public class LocadoraController {
     @GetMapping
 
     // Exibir dados cadastrados conforme requisição
-    public List<DadosListagemLocadora> listar (){
-        return repository.findAll().stream().map(DadosListagemLocadora::new).toList();
+    public ResponseEntity<List<DadosListagemLocadora>> listar (){
+        var lista = repository.findAllByAtivoTrue().stream().map(DadosListagemLocadora::new).toList();
+        return ResponseEntity.ok(lista);
 
     }
-
 
     @PutMapping
     @Transactional
 
-    public void atualizarCarro (@RequestBody @Valid DadosAtualizarLocadora dados){
+    public ResponseEntity<DadosDetalheAtualizarCarros> atualizarCarro (@RequestBody @Valid DadosAtualizarLocadora dados){
         var locadora = repository.getReferenceById(dados.id());
         locadora.atualizarInformacoes(dados);
+        return ResponseEntity.ok(new DadosDetalheAtualizarCarros(locadora));
 
     }
 
+    @DeleteMapping("/{id}")
+    @Transactional
+
+    public ResponseEntity<Void> excluir (@PathVariable Long id){
+        repository.deleteById(id);
+        return ResponseEntity.ok().build();
+       
+    }
+
+    @DeleteMapping ("inativar/{id}")
+    @Transactional
+
+    public ResponseEntity<Void> inativar (@PathVariable Long id) {
+        var locadora = repository.getReferenceById(id);
+        locadora.inativar();
+        return ResponseEntity.ok().build();
+
+    }
+
+    @PutMapping ("ativar/{id}")
+    @Transactional
+
+    public ResponseEntity<Void> ativar (@PathVariable Long id) {
+        var locadora = repository.getReferenceById(id);
+        locadora.ativar();
+        return ResponseEntity.ok().build();
+    }
 
 }

@@ -7,5 +7,6 @@ CREATE TABLE locadora(
     placa VARCHAR (100) NOT NULL UNIQUE,
     cambio VARCHAR (100),
     valor DECIMAL (10,2),
-    dataretirada DATETIME 
+    dataretirada DATETIME,
+    ativo TINYINT
 );
