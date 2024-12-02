@@ -1,10 +1,12 @@
 package com.projeto.locadora.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.projeto.locadora.entity.LocadoraEntity;
 import com.projeto.locadora.ods.DadosAtualizarLocadora;
 import com.projeto.locadora.ods.DadosCadastroLocadora;
+import com.projeto.locadora.ods.DadosDetalhamentoCarros;
 import com.projeto.locadora.ods.DadosDetalheAtualizarCarros;
 import com.projeto.locadora.ods.DadosListagemLocadora;
 import com.projeto.locadora.repository.LocadoraRepository;
@@ -38,8 +40,13 @@ public class LocadoraController {
     @PostMapping
     @Transactional
     // Encapsulamento dos dados e Save no BD
-    public void cadastrarCarro (@RequestBody @Valid DadosCadastroLocadora dados) {
-        repository.save(new LocadoraEntity(dados));
+    public ResponseEntity<DadosDetalhamentoCarros> cadastrarCarro (@RequestBody @Valid DadosCadastroLocadora dados, UriComponentsBuilder uriBuilder) {
+        var locadora = (new LocadoraEntity(dados));
+        repository.save(locadora);
+
+        var uri = uriBuilder.path("/locadora/{id}").buildAndExpand(locadora.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoCarros(locadora));
     }
 
      // Definição do tipo de requisição como Get    
