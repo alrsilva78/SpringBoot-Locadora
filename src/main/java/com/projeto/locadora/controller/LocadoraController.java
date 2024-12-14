@@ -3,12 +3,11 @@ package com.projeto.locadora.controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.projeto.locadora.dtos.DadosAtualizarLocadora;
+import com.projeto.locadora.dtos.DadosCadastroLocadora;
+import com.projeto.locadora.dtos.DadosDetalhamentoCarros;
+import com.projeto.locadora.dtos.DadosListagemLocadora;
 import com.projeto.locadora.entity.LocadoraEntity;
-import com.projeto.locadora.ods.DadosAtualizarLocadora;
-import com.projeto.locadora.ods.DadosCadastroLocadora;
-import com.projeto.locadora.ods.DadosDetalhamentoCarros;
-import com.projeto.locadora.ods.DadosDetalheAtualizarCarros;
-import com.projeto.locadora.ods.DadosListagemLocadora;
 import com.projeto.locadora.repository.LocadoraRepository;
 
 import jakarta.transaction.Transactional;
@@ -62,10 +61,10 @@ public class LocadoraController {
     @PutMapping
     @Transactional
 
-    public ResponseEntity<DadosDetalheAtualizarCarros> atualizarCarro (@RequestBody @Valid DadosAtualizarLocadora dados){
+    public ResponseEntity<DadosDetalhamentoCarros> atualizarCarro (@RequestBody @Valid DadosAtualizarLocadora dados){
         var locadora = repository.getReferenceById(dados.id());
         locadora.atualizarInformacoes(dados);
-        return ResponseEntity.ok(new DadosDetalheAtualizarCarros(locadora));
+        return ResponseEntity.ok(new DadosDetalhamentoCarros(locadora));
 
     }
 
@@ -74,7 +73,7 @@ public class LocadoraController {
 
     public ResponseEntity<Void> excluir (@PathVariable Long id){
         repository.deleteById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
        
     }
 
@@ -84,7 +83,7 @@ public class LocadoraController {
     public ResponseEntity<Void> inativar (@PathVariable Long id) {
         var locadora = repository.getReferenceById(id);
         locadora.inativar();
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
 
     }
 
@@ -94,7 +93,14 @@ public class LocadoraController {
     public ResponseEntity<Void> ativar (@PathVariable Long id) {
         var locadora = repository.getReferenceById(id);
         locadora.ativar();
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+
+    public ResponseEntity<DadosDetalhamentoCarros>detalhar(@PathVariable Long id){
+        var locadora = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoCarros(locadora));
     }
 
 }

@@ -1,4 +1,4 @@
-package com.projeto.locadora.ods;
+package com.projeto.locadora.dtos;
 
 public enum Tipo {
     CARRO, 

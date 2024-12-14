@@ -2,11 +2,11 @@ package com.projeto.locadora.entity;
 
 import java.time.LocalDate;
 
-import com.projeto.locadora.ods.Cambio;
-import com.projeto.locadora.ods.DadosAtualizarLocadora;
-import com.projeto.locadora.ods.DadosCadastroLocadora;
-import com.projeto.locadora.ods.Marca;
-import com.projeto.locadora.ods.Tipo;
+import com.projeto.locadora.dtos.Cambio;
+import com.projeto.locadora.dtos.DadosAtualizarLocadora;
+import com.projeto.locadora.dtos.DadosCadastroLocadora;
+import com.projeto.locadora.dtos.Marca;
+import com.projeto.locadora.dtos.Tipo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

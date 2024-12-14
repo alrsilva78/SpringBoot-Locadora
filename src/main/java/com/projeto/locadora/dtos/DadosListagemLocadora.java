@@ -1,4 +1,4 @@
-package com.projeto.locadora.ods;
+package com.projeto.locadora.dtos;
 
 // Classe Record DTO
 import java.time.LocalDate;
